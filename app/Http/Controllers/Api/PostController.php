@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\PostRequest;
+use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -25,9 +26,9 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(PostRequest $request)
+    public function store(StorePostRequest $request)
     {
-        $post =  $request->validated();
+        $post = Post::create($request->validated());
         return response()->json([
             'status' => true,
             'message' => 'Post ajouté avec succés',
@@ -40,15 +41,40 @@ class PostController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $post = Post::find($id);
+        if (!$post) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Post introuvable',
+            ], 404);
+        }
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Post recupéré avec succes',
+            'data' => $post
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdatePostRequest $request, string $id)
     {
-        //
+        $post = Post::find($id);
+        if (!$post) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Post introuvable',
+            ], 404);
+        }
+
+        $post->update($request->validated());
+        return response()->json([
+            'status' => true,
+            'message' => 'Post modifier avec succés',
+            'data' => $post
+        ]);
     }
 
     /**
@@ -56,6 +82,17 @@ class PostController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $post = Post::find($id);
+        if (!$post) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Post introuvable',
+            ], 404);
+        }
+        $post->delete();
+        return response()->json([
+            'status' => true,
+            'message' => 'Post supprimé avec succés',
+        ]);
     }
 }
