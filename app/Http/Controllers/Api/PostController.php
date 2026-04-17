@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use App\Http\Resources\PostResource;
 use App\Models\Post;
-use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
@@ -19,7 +19,7 @@ class PostController extends Controller
         return response()->json([
             'status' => true,
             'message' => 'Liste des posts',
-            'data' => $post
+            'data' => PostResource::collection($post)
         ]);
     }
 
@@ -52,7 +52,7 @@ class PostController extends Controller
         return response()->json([
             'status' => true,
             'message' => 'Post recupéré avec succes',
-            'data' => $post
+            'data' => new PostResource($post)
         ]);
     }
 
@@ -73,7 +73,7 @@ class PostController extends Controller
         return response()->json([
             'status' => true,
             'message' => 'Post modifier avec succés',
-            'data' => $post
+            'data' => new PostResource($post)
         ]);
     }
 
