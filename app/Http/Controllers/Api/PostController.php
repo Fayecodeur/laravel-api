@@ -15,7 +15,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $post = Post::latest()->get();
+        $post = Post::latest()->paginate(5);
         return response()->json([
             'status' => true,
             'message' => 'Liste des posts',
@@ -32,8 +32,8 @@ class PostController extends Controller
         return response()->json([
             'status' => true,
             'message' => 'Post ajouté avec succés',
-            'data' => $post
-        ]);
+            'data' =>  new PostResource($post)
+        ], 201);
     }
 
     /**
@@ -74,7 +74,7 @@ class PostController extends Controller
             'status' => true,
             'message' => 'Post modifier avec succés',
             'data' => new PostResource($post)
-        ]);
+        ], 200);
     }
 
     /**
