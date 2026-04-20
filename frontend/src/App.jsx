@@ -1,9 +1,10 @@
 import "./App.css";
+import Posts from "./pages/Posts";
 
 function App() {
   return (
     <section>
-      <h1>Post</h1>
+      <Posts />
     </section>
   );
 }
