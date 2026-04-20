@@ -12,12 +12,12 @@ export default function Posts() {
   }
 
   return (
-    <section className="py-4">
+    <section className="py-3">
       <div className="container">
         <h1 className="text-center mb-4">Liste des posts</h1>
 
         <div className="row g-3">
-          {posts?.data?.map((post) => (
+          {posts?.map((post) => (
             <div key={post.id} className="col-md-4">
               <div className="card shadow-sm h-100">
                 <div className="card-body">
