@@ -1,7 +1,10 @@
+import PostCard from "../components/PostCard";
+import { useDeletePost } from "../hooks/useDeletePost";
 import { usePosts } from "../hooks/usePosts";
 
 export default function Posts() {
   const { data: posts, isLoading, error } = usePosts();
+  const { mutate: deletePost } = useDeletePost();
 
   if (isLoading) {
     return <p className="text-center">Chargement...</p>;
@@ -14,18 +17,11 @@ export default function Posts() {
   return (
     <section className="py-3">
       <div className="container">
-        <h1 className="text-center mb-4">Liste des posts</h1>
+        <h5 className="text-center mb-4">Liste des posts</h5>
 
         <div className="row g-3">
           {posts?.map((post) => (
-            <div key={post.id} className="col-md-4">
-              <div className="card shadow-sm h-100">
-                <div className="card-body">
-                  <h5 className="card-title">{post.title}</h5>
-                  <p className="card-text">{post.description}</p>
-                </div>
-              </div>
-            </div>
+            <PostCard key={post.id} post={post} deletePost={deletePost} />
           ))}
         </div>
       </div>
