@@ -12,6 +12,11 @@ export const createPost = async (data) => {
   return response.data;
 };
 
+export const getPost = async (id) => {
+  const response = await axios.get(`${URL}/${id}`);
+  return response.data.data;
+};
+
 export const deletePost = async (id) => {
   const response = await axios.delete(`${URL}/${id}`);
   return response.data;
