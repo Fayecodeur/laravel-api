@@ -3,29 +3,37 @@ import { Link } from "react-router-dom";
 export default function PostCard({ post, deletePost }) {
   return (
     <div className="col-md-4">
-      <div className="card shadow-sm h-100">
-        <div className="card-body">
-          <h5 className="card-title">{post.title}</h5>
-          <p className="card-text">{post.description}</p>
-        </div>
-        <div className="d-flex gap-2 mb-2">
-          {/* <Link to={`/posts/${post.id}`} className="btn btn-info btn-sm">
-            Voir
-          </Link>
+      <div className="card border-0 shadow-sm h-100 rounded-4">
+        <div className="card-body d-flex flex-column">
+          {/* Title */}
+          <h5 className="fw-bold mb-2">{post.title}</h5>
 
-          <Link
-            to={`/posts/edit/${post.id}`}
-            className="btn btn-warning btn-sm"
-          >
-            Modifier
-          </Link> */}
+          {/* Description */}
+          <p className="text-muted flex-grow-1">{post.description}</p>
 
-          <button
-            onClick={() => deletePost(post.id)}
-            className="btn btn-danger btn-sm"
-          >
-            Supprimer
-          </button>
+          {/* Buttons */}
+          <div className="d-flex gap-2 mt-3">
+            <Link
+              to={`/posts/${post.id}`}
+              className="btn btn-sm btn-outline-primary w-100"
+            >
+              Voir
+            </Link>
+
+            <Link
+              to={`/posts/edit/${post.id}`}
+              className="btn btn-sm btn-outline-warning w-100"
+            >
+              Modifier
+            </Link>
+
+            <button
+              onClick={() => deletePost(post.id)}
+              className="btn btn-sm btn-outline-danger w-100"
+            >
+              Supprimer
+            </button>
+          </div>
         </div>
       </div>
     </div>
